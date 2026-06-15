@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polidario/Elizabeth_Clean.git"
+    "url": "git+https://github.com/harshachouhan2016/Harsha_Repo_For_Shopify_demo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/polidario/Elizabeth_Clean/issues"
+    "url": "https://github.com/harshachouhan2016/Harsha_Repo_For_Shopify_demo/issues"
   },
-  "homepage": "https://github.com/polidario/Elizabeth_Clean#readme",
+  "homepage": "https://github.com/harshachouhan2016/Harsha_Repo_For_Shopify_demo#readme",
   "dependencies": {
     "@tailwindcss/cli": "^4.3.0",
     "tailwindcss": "^4.3.0"

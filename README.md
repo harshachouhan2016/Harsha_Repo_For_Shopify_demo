@@ -1,4 +1,4 @@
-# :wave: Say hi to Elizabeth :wave:
+# :wave: Say hi to Harsha_Repo_For_Shopify_demo :wave:
 
 [![Generic badge](https://img.shields.io/badge/course%20available%3F-yes-green.svg)](https://shields.io/)
 

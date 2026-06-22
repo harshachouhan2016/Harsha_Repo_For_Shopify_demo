@@ -1,0 +1,122 @@
+{% if section.settings.show_promo %}
+  {% if section.settings.alignment == 'center' %}
+    {% assign _justify = 'justify-center' %}
+    {% assign _text_align = 'text-center' %}
+  {% elsif section.settings.alignment == 'left' %}
+    {% assign _justify = 'justify-start' %}
+    {% assign _text_align = 'text-left' %}
+  {% else %}
+    {% assign _justify = 'justify-end' %}
+    {% assign _text_align = 'text-right' %}
+  {% endif %}
+
+  <div class="w-full text-sm py-2 border-b border-theme" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+    <div class="mx-auto px-4">
+      {% comment %}Slider: uses Alpine.js to rotate through blocks. Falls back to single text if no blocks added.{% endcomment %}
+      <div x-data="{ idx: 0, slidesCount: {{ section.blocks.size }}, interval: {{ section.settings.slide_interval | default: 5 }} * 1000 }" x-init="if (slidesCount > 1) setInterval(()=>{ idx = (idx + 1) % slidesCount }, interval)">
+
+        {% if section.blocks.size > 0 %}
+          <div class="relative" style="min-height:1.5rem;">
+            {% for block in section.blocks %}
+              <p x-show="idx === {{ forloop.index0 }}" x-transition:enter="transition-opacity duration-700" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute inset-0 flex items-center {{ _justify }} text-sm px-2" x-cloak style="color: {{ section.settings.text_color }};">
+                <span class="w-full {{ _text_align }}">
+                  {{ block.settings.text }}
+                  {% if block.settings.link != blank %}
+                    <a href="{{ block.settings.link }}" class="font-medium ml-2" style="color: {{ section.settings.text_color }};">{{ block.settings.label }}</a>
+                  {% endif %}
+                </span>
+              </p>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="{{ _text_align }} text-sm" style="color: {{ section.settings.text_color }};">
+            {{ section.settings.promo_text }}
+            <a href="{{ section.settings.promo_link }}" class="font-medium ml-2" style="color: {{ section.settings.text_color }};">{{ section.settings.promo_label }}</a>
+          </p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Promo Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_promo",
+      "label": "Show promo bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "Free Standard U.S. Shipping w/$50 USD order."
+    },
+    {
+      "type": "text",
+      "id": "promo_link",
+      "label": "Promo link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "promo_label",
+      "label": "Link label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f6dfdc"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#6f5e5b"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text alignment",
+      "options": [
+        {"value": "center", "label": "Center"},
+        {"value": "left", "label": "Left"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    }
+  ,
+    {
+      "type": "number",
+      "id": "slide_interval",
+      "label": "Slide interval (seconds)",
+      "default": 5,
+      "info": "Time each slide is shown before rotating."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Slide text", "default": "Free Standard U.S. Shipping w/$50 USD order." },
+        { "type": "text", "id": "link", "label": "Link URL", "default": "/collections/all" },
+        { "type": "text", "id": "label", "label": "Link label", "default": "Shop Now" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Bar",
+      "category": "Header"
+    }
+  ]
+}
+{% endschema %}

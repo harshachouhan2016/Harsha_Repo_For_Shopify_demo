@@ -1,6 +1,46 @@
 {
-  "current": "Default",
+  "current": {
+    "sections": {
+      "homepage": {
+        "type": "homepage",
+        "blocks": {
+          "cat_lip":   { "type": "category", "settings": { "title": "Lip",   "image_url": "https://placehold.co/600x600/f6dfdc/c35256?text=Lip" } },
+          "cat_cheek": { "type": "category", "settings": { "title": "Cheek", "image_url": "https://placehold.co/600x600/ecaaab/7b2f31?text=Cheek" } },
+          "cat_eye":   { "type": "category", "settings": { "title": "Eye",   "image_url": "https://placehold.co/600x600/fbe8e6/9f3f41?text=Eye" } },
+          "cat_face":  { "type": "category", "settings": { "title": "Face",  "image_url": "https://placehold.co/600x600/f4c9c7/57211f?text=Face" } },
+
+          "prod_1": { "type": "product", "settings": { "title": "Soft Pinch Liquid Blush",      "category": "Cheek", "price": "$23.00", "reviews": "1.2k", "image_url": "https://placehold.co/600x600/f6dfdc/c35256?text=Liquid+Blush" } },
+          "prod_2": { "type": "product", "settings": { "title": "Lip Soufflé Matte Cream",      "category": "Lip",   "price": "$20.00", "reviews": "980",  "image_url": "https://placehold.co/600x600/ecaaab/7b2f31?text=Lip+Souffle" } },
+          "prod_3": { "type": "product", "settings": { "title": "Positive Light Highlighter",   "category": "Face",  "price": "$25.00", "reviews": "640",  "image_url": "https://placehold.co/600x600/fbe8e6/9f3f41?text=Highlighter" } },
+          "prod_4": { "type": "product", "settings": { "title": "Perfect Strokes Mascara",      "category": "Eye",   "price": "$22.00", "reviews": "1.5k", "image_url": "https://placehold.co/600x600/f4c9c7/57211f?text=Mascara" } },
+          "prod_5": { "type": "product", "settings": { "title": "Stay Vulnerable Eyeshadow",    "category": "Eye",   "price": "$24.00", "reviews": "410",  "image_url": "https://placehold.co/600x600/f6dfdc/c35256?text=Eyeshadow" } },
+          "prod_6": { "type": "product", "settings": { "title": "Find Comfort Hydrating Lip",   "category": "Lip",   "price": "$19.00", "reviews": "720",  "image_url": "https://placehold.co/600x600/ecaaab/7b2f31?text=Lip+Oil" } },
+          "prod_7": { "type": "product", "settings": { "title": "Always An Optimist Primer",    "category": "Face",  "price": "$30.00", "reviews": "890",  "image_url": "https://placehold.co/600x600/fbe8e6/9f3f41?text=Primer" } },
+          "prod_8": { "type": "product", "settings": { "title": "Warm Wishes Bronzer Stick",    "category": "Face",  "price": "$26.00", "reviews": "330",  "image_url": "https://placehold.co/600x600/f4c9c7/57211f?text=Bronzer" } },
+
+          "rev_1": { "type": "review", "settings": { "quote": "The best blush I've ever used — a little goes such a long way and it lasts all day.", "author": "Jordan M." } },
+          "rev_2": { "type": "review", "settings": { "quote": "Finally a foundation that feels like skin. Lightweight, buildable, and it never creases.", "author": "Priya S." } },
+          "rev_3": { "type": "review", "settings": { "quote": "Love that my purchase supports mental health. Beautiful products with a beautiful mission.", "author": "Alex R." } }
+        },
+        "block_order": [
+          "cat_lip", "cat_cheek", "cat_eye", "cat_face",
+          "prod_1", "prod_2", "prod_3", "prod_4", "prod_5", "prod_6", "prod_7", "prod_8",
+          "rev_1", "rev_2", "rev_3"
+        ]
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "col_shop": { "type": "menu", "settings": { "heading": "Shop", "links": "Best Sellers | /collections/all\nNew Arrivals | /collections/all\nLip | /collections/all\nCheek | /collections/all\nFace | /collections/all" } },
+          "col_about": { "type": "menu", "settings": { "heading": "About", "links": "Our Story | /pages/about\nOur Mission | /pages/about\nIngredients | /pages/about\nSustainability | /pages/about" } },
+          "col_help": { "type": "menu", "settings": { "heading": "Help", "links": "Contact Us | /pages/contact\nShipping & Returns | /pages/contact\nFAQ | /pages/contact\nTrack Order | /pages/contact" } },
+          "col_social": { "type": "menu", "settings": { "heading": "Follow", "links": "Instagram | #\nTikTok | #\nYouTube | #\nPinterest | #" } }
+        },
+        "block_order": ["col_shop", "col_about", "col_help", "col_social"]
+      }
+    }
+  },
   "presets": {
-    "Default": { }
+    "Default": {}
   }
 }

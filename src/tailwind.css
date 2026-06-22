@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --color-bg: #fff8f6;
+    --color-surface: #ffffff;
+    --color-text: #111111;
+    --color-muted: #6f5e5b;
+    --color-primary: #d96c6f;
+    --color-primary-strong: #c35256;
+    --color-secondary: #f6dfdc;
+    --color-border: #e7d3d0;
+  }
+
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus {
+    color: var(--color-primary-strong);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #111111;
+  }
+
+  p,
+  li,
+  span,
+  label {
+    color: var(--color-muted);
+  }
+
+  .bg-theme-primary {
+    background-color: var(--color-primary);
+  }
+
+  .bg-theme-secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .bg-theme-surface {
+    background-color: var(--color-surface);
+  }
+
+  .text-theme-primary {
+    color: var(--color-primary);
+  }
+
+  .text-theme-muted {
+    color: var(--color-muted);
+  }
+
+  .border-theme {
+    border-color: var(--color-border);
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Template 404",
+    "layout": "custom_theme",
+    "wrapper": "div#404_template.template-404[data-template='404']",
+    "sections": {
+        "template-404": {
+            "type": "404-page"
+        }
+    },
+    "order": ["template-404"]
+}

@@ -1,5 +1,254 @@
-<div class="homepage">
-  <img src="{{ 'weeklyhow-logo.png' | asset_img_url: 'large' }}" class="logo">
-  <h1>Welcome to Shopify Theme Development course!</h1>
-  <p>{% render 'homepage-text' %}</p>
+{% comment %}
+  Rare Beauty–inspired homepage.
+  All products/images here are DUMMY placeholders defined via section settings & blocks,
+  so the page renders standalone without a connected store. Swap the placehold.co URLs
+  and block content for real assets / collections when wiring up a live store.
+{% endcomment %}
+
+{%- assign hero_image = section.settings.hero_image_url | default: 'pexels-michael-steinberg-95604-346553.jpg' -%}
+{%- if hero_image contains 'http' -%}
+  {%- assign hero_src = hero_image -%}
+{%- else -%}
+  {%- assign hero_src = hero_image | asset_url -%}
+{%- endif -%}
+
+<!-- ============================ HERO ============================ -->
+<section class="relative isolate overflow-hidden">
+  <img src="{{ hero_src }}" alt="{{ section.settings.hero_heading | escape }}"
+       class="absolute inset-0 -z-10 h-full w-full object-cover">
+  <div class="absolute inset-0 -z-10 bg-black/30"></div>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-28 sm:py-40 text-center">
+    <p class="text-sm uppercase tracking-[0.3em] text-white/90 mb-4">{{ section.settings.hero_eyebrow }}</p>
+    <h2 class="text-white text-4xl sm:text-6xl font-bold max-w-3xl mx-auto leading-tight">
+      {{ section.settings.hero_heading }}
+    </h2>
+    <p class="text-white/90 text-lg mt-5 max-w-xl mx-auto">{{ section.settings.hero_subheading }}</p>
+    <div class="mt-9 flex flex-wrap gap-4 justify-center">
+      <a href="{{ section.settings.hero_cta_link }}"
+         class="inline-block rounded-full px-8 py-3 text-base font-medium text-white bg-theme-primary hover:opacity-90 transition">
+        {{ section.settings.hero_cta_label }}
+      </a>
+      <a href="{{ section.settings.hero_cta2_link }}"
+         class="inline-block rounded-full px-8 py-3 text-base font-medium text-gray-900 bg-white hover:bg-neutral-100 transition">
+        {{ section.settings.hero_cta2_label }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VALUE STRIP ========================== -->
+<div class="bg-theme-secondary">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+    <div>✦ Cruelty-Free &amp; Vegan</div>
+    <div>✦ Clean Ingredients</div>
+    <div>✦ Free Shipping over $50</div>
+    <div>✦ 1% Supports Mental Health</div>
+  </div>
 </div>
+
+<!-- ====================== CATEGORY TILES ======================= -->
+<section class="mx-auto max-w-7xl px-4 sm:px-6 py-16">
+  <h3 class="text-3xl font-bold text-center mb-10">Shop by Category</h3>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+    {% for block in section.blocks %}
+      {% if block.type == 'category' %}
+        <a href="{{ block.settings.link }}" class="group block" {{ block.shopify_attributes }}>
+          <div class="overflow-hidden rounded-2xl bg-theme-secondary aspect-square">
+            <img src="{{ block.settings.image_url }}" alt="{{ block.settings.title | escape }}"
+                 class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+          </div>
+          <p class="mt-3 text-center text-base font-medium text-gray-900">{{ block.settings.title }}</p>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ====================== BEST SELLERS ========================= -->
+<section class="bg-theme-secondary/40">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 py-16">
+    <div class="flex items-end justify-between mb-10">
+      <h3 class="text-3xl font-bold">Best Sellers</h3>
+      <a href="/collections/all" class="text-base font-medium text-theme-primary hover:underline">View all →</a>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for block in section.blocks %}
+        {% if block.type == 'product' %}
+          <div class="group bg-theme-surface rounded-2xl overflow-hidden border border-theme" {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.link }}" class="block overflow-hidden bg-theme-secondary aspect-square">
+              <img src="{{ block.settings.image_url }}" alt="{{ block.settings.title | escape }}"
+                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+            </a>
+            <div class="p-4">
+              <p class="text-xs uppercase tracking-wide text-theme-muted">{{ block.settings.category }}</p>
+              <a href="{{ block.settings.link }}">
+                <h4 class="mt-1 text-base font-medium text-gray-900">{{ block.settings.title }}</h4>
+              </a>
+              <div class="mt-1 text-sm text-theme-primary">★★★★★ <span class="text-theme-muted">({{ block.settings.reviews }})</span></div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-base font-semibold text-gray-900">{{ block.settings.price }}</span>
+                <button type="button"
+                        class="rounded-full px-4 py-1.5 text-sm font-medium text-white bg-theme-primary hover:opacity-90 transition">
+                  Add to Bag
+                </button>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PRODUCT SPOTLIGHT ==================== -->
+<section class="mx-auto max-w-7xl px-4 sm:px-6 py-20">
+  <div class="grid lg:grid-cols-2 gap-10 items-center">
+    <div class="overflow-hidden rounded-3xl bg-theme-secondary aspect-[4/3]">
+      <img src="{{ section.settings.spotlight_image_url }}" alt="{{ section.settings.spotlight_heading | escape }}"
+           class="h-full w-full object-cover">
+    </div>
+    <div>
+      <p class="text-sm uppercase tracking-[0.3em] text-theme-primary mb-3">{{ section.settings.spotlight_eyebrow }}</p>
+      <h3 class="text-4xl font-bold leading-tight">{{ section.settings.spotlight_heading }}</h3>
+      <p class="mt-5 text-lg text-theme-muted">{{ section.settings.spotlight_body }}</p>
+      <a href="{{ section.settings.spotlight_link }}"
+         class="mt-8 inline-block rounded-full px-8 py-3 text-base font-medium text-white bg-theme-primary hover:opacity-90 transition">
+        {{ section.settings.spotlight_cta }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== BRAND MISSION ======================= -->
+<section class="bg-theme-primary">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 py-20 text-center">
+    <h3 class="text-white text-3xl sm:text-4xl font-bold">{{ section.settings.mission_heading }}</h3>
+    <p class="text-white/90 text-lg mt-6">{{ section.settings.mission_body }}</p>
+    <a href="{{ section.settings.mission_link }}"
+       class="mt-8 inline-block rounded-full px-8 py-3 text-base font-medium text-gray-900 bg-white hover:bg-neutral-100 transition">
+      {{ section.settings.mission_cta }}
+    </a>
+  </div>
+</section>
+
+<!-- ====================== REVIEWS ============================== -->
+<section class="mx-auto max-w-7xl px-4 sm:px-6 py-16">
+  <h3 class="text-3xl font-bold text-center mb-10">Loved by Our Community</h3>
+  <div class="grid md:grid-cols-3 gap-6">
+    {% for block in section.blocks %}
+      {% if block.type == 'review' %}
+        <figure class="bg-theme-surface rounded-2xl border border-theme p-6" {{ block.shopify_attributes }}>
+          <div class="text-theme-primary mb-3">★★★★★</div>
+          <blockquote class="text-base text-theme-muted">“{{ block.settings.quote }}”</blockquote>
+          <figcaption class="mt-4 text-sm font-medium text-gray-900">— {{ block.settings.author }}</figcaption>
+        </figure>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ====================== NEWSLETTER ========================== -->
+<section class="bg-theme-secondary">
+  <div class="mx-auto max-w-2xl px-4 sm:px-6 py-16 text-center">
+    <h3 class="text-3xl font-bold">{{ section.settings.newsletter_heading }}</h3>
+    <p class="mt-3 text-theme-muted">{{ section.settings.newsletter_body }}</p>
+    <form class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input type="email" required placeholder="Enter your email"
+             class="flex-1 rounded-full border border-theme bg-white px-5 py-3 text-base outline-none focus:border-theme-primary">
+      <button type="submit"
+              class="rounded-full px-8 py-3 text-base font-medium text-white bg-theme-primary hover:opacity-90 transition">
+        Subscribe
+      </button>
+    </form>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_image_url", "label": "Hero image (URL or asset filename)", "default": "pexels-michael-steinberg-95604-346553.jpg" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "New Collection" },
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Makeup Made to Feel Good In" },
+    { "type": "text", "id": "hero_subheading", "label": "Subheading", "default": "Lightweight, buildable formulas designed to celebrate you — not cover you up." },
+    { "type": "text", "id": "hero_cta_label", "label": "Primary button label", "default": "Shop Best Sellers" },
+    { "type": "text", "id": "hero_cta_link", "label": "Primary button link", "default": "/collections/all" },
+    { "type": "text", "id": "hero_cta2_label", "label": "Secondary button label", "default": "Find Your Shade" },
+    { "type": "text", "id": "hero_cta2_link", "label": "Secondary button link", "default": "/collections/all" },
+
+    { "type": "header", "content": "Product Spotlight" },
+    { "type": "text", "id": "spotlight_image_url", "label": "Image URL", "default": "https://placehold.co/800x600/f6dfdc/c35256?text=Soft+Pinch+Blush" },
+    { "type": "text", "id": "spotlight_eyebrow", "label": "Eyebrow", "default": "Cult Favorite" },
+    { "type": "text", "id": "spotlight_heading", "label": "Heading", "default": "Soft Pinch Liquid Blush" },
+    { "type": "textarea", "id": "spotlight_body", "label": "Body", "default": "A weightless, long-lasting liquid blush that blends into a soft, natural flush. One tiny dot is all you need." },
+    { "type": "text", "id": "spotlight_cta", "label": "Button label", "default": "Shop the Blush" },
+    { "type": "text", "id": "spotlight_link", "label": "Button link", "default": "/collections/all" },
+
+    { "type": "header", "content": "Brand Mission" },
+    { "type": "text", "id": "mission_heading", "label": "Heading", "default": "Beauty With a Purpose" },
+    { "type": "textarea", "id": "mission_body", "label": "Body", "default": "We believe makeup should make you feel good without hiding what makes you unique. 1% of every sale supports mental health and access to care for those who need it most." },
+    { "type": "text", "id": "mission_cta", "label": "Button label", "default": "Learn About Our Impact" },
+    { "type": "text", "id": "mission_link", "label": "Button link", "default": "/pages/about" },
+
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "newsletter_heading", "label": "Heading", "default": "Join the Community" },
+    { "type": "textarea", "id": "newsletter_body", "label": "Body", "default": "Be the first to know about new launches, restocks, and exclusive offers." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Tile",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Lip" },
+        { "type": "text", "id": "image_url", "label": "Image URL", "default": "https://placehold.co/600x600/f6dfdc/c35256?text=Lip" },
+        { "type": "text", "id": "link", "label": "Link", "default": "/collections/all" }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Dummy Product",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Soft Pinch Liquid Blush" },
+        { "type": "text", "id": "category", "label": "Category", "default": "Cheek" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$23.00" },
+        { "type": "text", "id": "reviews", "label": "Review count", "default": "1.2k" },
+        { "type": "text", "id": "image_url", "label": "Image URL", "default": "https://placehold.co/600x600/f6dfdc/c35256?text=Blush" },
+        { "type": "text", "id": "link", "label": "Link", "default": "/collections/all" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The best blush I've ever used — a little goes such a long way and it lasts all day." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Jordan M." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Lip",   "image_url": "https://placehold.co/600x600/f6dfdc/c35256?text=Lip" } },
+        { "type": "category", "settings": { "title": "Cheek", "image_url": "https://placehold.co/600x600/ecaaab/7b2f31?text=Cheek" } },
+        { "type": "category", "settings": { "title": "Eye",   "image_url": "https://placehold.co/600x600/fbe8e6/9f3f41?text=Eye" } },
+        { "type": "category", "settings": { "title": "Face",  "image_url": "https://placehold.co/600x600/f4c9c7/57211f?text=Face" } },
+
+        { "type": "product", "settings": { "title": "Soft Pinch Liquid Blush", "category": "Cheek", "price": "$23.00", "reviews": "1.2k", "image_url": "https://placehold.co/600x600/f6dfdc/c35256?text=Liquid+Blush" } },
+        { "type": "product", "settings": { "title": "Lip Soufflé Matte Cream", "category": "Lip", "price": "$20.00", "reviews": "980", "image_url": "https://placehold.co/600x600/ecaaab/7b2f31?text=Lip+Souffle" } },
+        { "type": "product", "settings": { "title": "Positive Light Highlighter", "category": "Face", "price": "$25.00", "reviews": "640", "image_url": "https://placehold.co/600x600/fbe8e6/9f3f41?text=Highlighter" } },
+        { "type": "product", "settings": { "title": "Perfect Strokes Mascara", "category": "Eye", "price": "$22.00", "reviews": "1.5k", "image_url": "https://placehold.co/600x600/f4c9c7/57211f?text=Mascara" } },
+        { "type": "product", "settings": { "title": "Stay Vulnerable Eyeshadow", "category": "Eye", "price": "$24.00", "reviews": "410", "image_url": "https://placehold.co/600x600/f6dfdc/c35256?text=Eyeshadow" } },
+        { "type": "product", "settings": { "title": "Find Comfort Hydrating Lip", "category": "Lip", "price": "$19.00", "reviews": "720", "image_url": "https://placehold.co/600x600/ecaaab/7b2f31?text=Lip+Oil" } },
+        { "type": "product", "settings": { "title": "Always An Optimist Primer", "category": "Face", "price": "$30.00", "reviews": "890", "image_url": "https://placehold.co/600x600/fbe8e6/9f3f41?text=Primer" } },
+        { "type": "product", "settings": { "title": "Warm Wishes Bronzer Stick", "category": "Face", "price": "$26.00", "reviews": "330", "image_url": "https://placehold.co/600x600/f4c9c7/57211f?text=Bronzer" } },
+
+        { "type": "review", "settings": { "quote": "The best blush I've ever used — a little goes such a long way and it lasts all day.", "author": "Jordan M." } },
+        { "type": "review", "settings": { "quote": "Finally a foundation that feels like skin. Lightweight, buildable, and it never creases.", "author": "Priya S." } },
+        { "type": "review", "settings": { "quote": "Love that my purchase supports mental health. Beautiful products with a beautiful mission.", "author": "Alex R." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
